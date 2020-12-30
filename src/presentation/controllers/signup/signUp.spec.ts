@@ -211,4 +211,24 @@ describe('SignUp Controller', () => {
     expect(hhtpResponse.statusCode).toBe(500);
     expect(hhtpResponse.body).toEqual(new ServerError());
   });
+
+  test('Should return 200 if valid data is provided', () => {
+    const { sut } = makesut();
+    const httpRequest = {
+      body: {
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password',
+      },
+    };
+    const hhtpResponse = sut.handle(httpRequest);
+    expect(hhtpResponse.statusCode).toBe(200);
+    expect(hhtpResponse.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password',
+    });
+  });
 });

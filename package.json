@@ -36,5 +36,10 @@
     "bcrypt": "^5.0.0",
     "mongodb": "^3.6.3",
     "validator": "^13.5.2"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "latest"
+    }
   }
 }

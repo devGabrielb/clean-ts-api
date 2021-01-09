@@ -20,7 +20,7 @@ describe('Signup Routes Middleware', () => {
         name: 'Gabriel Batista',
         email: 'gabb8091@gmail.com',
         password: '123',
-        confirmpassword: '123',
+        passwordConfirmation: '123',
       })
       .expect(200);
   });

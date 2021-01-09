@@ -1,5 +1,10 @@
-import app from './config/app';
-
-app.listen(5050, () => {
-  console.log(`rodando ${5050}`);
-});
+import { MongoHelper } from '../infra/db/mongodb/helpers/mongo-helper';
+import env from './config/env';
+MongoHelper.connect(env.mongodb.mongoUrl)
+  .then(async () => {
+    const app = (await import('./config/app')).default;
+    app.listen(env.mongodb.port, () => {
+      console.log(`rodando no http://localhost:${env.mongodb.port}`);
+    });
+  })
+  .catch(console.error);

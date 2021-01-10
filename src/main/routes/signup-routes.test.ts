@@ -10,8 +10,8 @@ describe('Signup Routes Middleware', () => {
   });
 
   beforeEach(async () => {
-    const accountCollection = MongoHelper.getCollection('accounts');
-    accountCollection.deleteMany({});
+    const accountCollection = await MongoHelper.getCollection('accounts');
+    await accountCollection.deleteMany({});
   });
   test('should return an account on success ', async () => {
     await request(app)

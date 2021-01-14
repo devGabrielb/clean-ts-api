@@ -1,3 +1,4 @@
+import { LogErrorRepository } from '../../data/protocols/log-error-repository';
 import {
   Controller,
   HttpResponse,
@@ -6,14 +7,16 @@ import {
 
 export class LogControllerDecorator implements Controller {
   private readonly _controler: Controller;
-  constructor(controller: Controller) {
+  private readonly _logErrorRepository: LogErrorRepository;
+  constructor(controller: Controller, logErrorRepository: LogErrorRepository) {
+    this._logErrorRepository = logErrorRepository;
     this._controler = controller;
   }
   async handle(httpRequest: HttpResquest): Promise<HttpResponse> {
     const httpResponse = await this._controler.handle(httpRequest);
-    // if (httpResponse.statusCode === 500) {
-    //   //log
-    // }
+    if (httpResponse.statusCode === 500) {
+      await this._logErrorRepository.log(httpResponse.body.stack);
+    }
     return httpResponse;
   }
 }
